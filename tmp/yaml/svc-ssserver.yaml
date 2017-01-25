@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-ssserver
+  labels:
+    app: ssserver
+    tier: svc-ssserver
+spec:
+  ports:
+    # the port that this service should serve on
+  - port: 8388
+    targetPort: 8388
+  type: LoadBalancer
+  selector:
+    app: ssserver
+    tier: svc-ssserver
+  sessionAffinity: ClientIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: svc-ssserver
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ssserver
+        tier: svc-ssserver
+    spec:
+      containers:
+      - name: ssserver
+        image: zyfdedh/shadowsocks
+        args: ["--v=2", "--alsologtostderr", "/config/auth_config.yml"]
+        ports:
+        - containerPort: 8388
