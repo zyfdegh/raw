@@ -174,13 +174,14 @@ token:  # Settings for the tokens.
 
 # REST API authentication - extended method for linkernetworks
 # Example request:
-#   curl -X POST http://127.0.0.1:8080/user/login -d email=someone@email.com -d password=secret
+#   curl -X POST http://127.0.0.1:8080/user/ulogin -d username=someone -d password=secret
 # Example response(ok):
 # {
 # 	"code":200,
 # 	"msg":"ok",
-# 	"token":"233333333333"
+# 	"token":"111111111122222222233333333333"
 # }
+# Env AUTH_API_ENDPOINT will override this endpoint.
 restapi_auth:
     method: "POST"
     endpoint: "127.0.0.1:8080"
